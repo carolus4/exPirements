@@ -1,0 +1,39 @@
+SSH  Into Pi
+============
+
+[CL] $ raspi-config
+In *advanced options*  > Enable SSH 
+
+[CL] $ ifconfig
+Find IP address.
+    (e.g. 192.168.[number])
+
+ssh pi@192.168.[number]
+pw raspberry
+
+Pi Set-up
+=========
+
+sudo apt-get install iwconfig #doesn't seem to work?
+sudo apt-get install iw
+apt-get update
+
+# per- http://oscarhjelm.com/blag/?p=1207
+
+wget http://download.aircrack-ng.org/aircrack-ng-1.1.tar.gz
+tar -zxvf aircrack-ng-1.1.tar.gz
+cd aircrack-ng-1.1
+sudo apt-get install libssl-dev
+sudo apt-get install build-essential
+
+change the make file:
+vi common.mak
+    remove werror
+
+make
+sudo make install
+
+
+WiFi key set up
+===============
+airmon-ng start wlan0

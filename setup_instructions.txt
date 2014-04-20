@@ -36,4 +36,13 @@ sudo make install
 
 WiFi key set up
 ===============
-airmon-ng start wlan0
+
+Put the interface in monitor mode:
+sudo iwconfig [interface] mode monitor
+
+Start monitoring using airmon-ng:
+sudo airmon-ng start wlan0
+
+Example command lines:
+sudo airodump-ng mon0 -c 8 --manufacturer --showack --update 3 | #This will monitor + show ack from different clients and only update every 3 seconds on channel 8
+sudo airodump-ng  --bssid 7C:4C:A5:94:6B:F5 -w capture mon0 -o pcap --showack -c 8 | #This will scan a given AP and capture output in a file called capture in pcap format

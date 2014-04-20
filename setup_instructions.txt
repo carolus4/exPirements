@@ -47,3 +47,4 @@ Example command lines:
 sudo airodump-ng mon0 -c 8 --manufacturer --showack --update 3 | #This will monitor + show ack from different clients and only update every 3 seconds on channel 8
 sudo airodump-ng  --bssid 7C:4C:A5:94:6B:F5 -w capture mon0 -o pcap --showack -c 8 | #This will scan a given AP and capture output in a file called capture in pcap format
 sudo tshark -i mon0 | capture using tshark (can output to text file)
+sudo tshark -i mon0 -a duration:3 -N m -t ad > capture_tshark2.txt | capture for 3 seconds trying to resolve MAC addresses into names and listing absolute timestamps with date

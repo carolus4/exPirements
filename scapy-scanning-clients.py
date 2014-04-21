@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from scapy.all import *
+import datetime
 
 # Define the interface name that we will be sniffing from
 interface = "mon0"
@@ -9,6 +10,7 @@ observedclients = []
 # The sniffmgmt() function is called each time Scapy receives a packet
 # The packet that was sniffed is passed as the function argument, "p".
 def sniffmgmt(p):
+    timestamp = str(datetime.datetime.now())
 
     # Define our tuple (an immutable list) of the 3 management frame
     # subtypes sent exclusively by clients. I got this list from Wireshark.
@@ -27,7 +29,7 @@ def sniffmgmt(p):
             # client address isn't present, print the address and then add
             # it to our list.
             if p.addr2 not in observedclients:
-                print p.addr2
+                print "pi1" + "," + timestamp + "," + p.addr2
                 observedclients.append(p.addr2)
 
 # With the sniffmgmt() function complete, we can invoke the Scapy sniff()

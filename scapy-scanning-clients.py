@@ -28,7 +28,7 @@ def sniffmgmt(p):
             # hasn't already been observed. Check our list and if the
             # client address isn't present, print the address and then add
             # it to our list.
-            if p.addr2 not in observedclients:
+            if p.addr2 not in observedclients and p.addr2 == "c4:43:8f:57:58:5b":
                 print "pi1" + "," + timestamp + "," + p.addr2
                 observedclients.append(p.addr2)
 

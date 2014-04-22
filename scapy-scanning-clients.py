@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from scapy.all import *
+import sys
 import datetime
 
 # Define the interface name that we will be sniffing from
@@ -30,6 +31,7 @@ def sniffmgmt(p):
             # it to our list.
             if p.addr2 not in observedclients and p.addr2 == "c4:43:8f:57:58:5b":
                 print "pi1" + "," + timestamp + "," + p.addr2
+                sys.stdout.write( "pi1" + "," + timestamp + "," + p.addr2)
                 observedclients.append(p.addr2)
 
 # With the sniffmgmt() function complete, we can invoke the Scapy sniff()

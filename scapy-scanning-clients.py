@@ -5,12 +5,17 @@ from sys import argv
 import sys
 import datetime
 #import MySQLdb
+class EmptyArgs(StandardError):
+    pass
 
-pinumber = argv[0]
+if len(sys.argv) == 1:
+   raise EmptyArgs('Specify at least 1 argument - the PI number as an integer')
+
+pinumber = argv[1]
 
 # Define the interface name that we will be sniffing from
 interface = "mon0"
-f = open("output"+str(pinumber)+".txt","w")
+f = open("output_pi-"+str(pinumber)+".txt","w")
 observedclients = []
 
 # The sniffmgmt() function is called each time Scapy receives a packet
@@ -36,7 +41,7 @@ def sniffmgmt(p):
             # it to our list.
             if p.addr2 == "c4:43:8f:57:58:5b": #p.addr2 not in observedclients and 
                 print(str(pinumber) + "," + timestamp + "," + p.addr2, file = f)
-                print "GOT ONE!" + timestamp + " " + p.addr2
+                print("NewMAC:  " + timestamp + " " + p.addr2)
                 observedclients.append(p.addr2)
                 #sendtodb("pi1",timestamp,p.addr2)
 

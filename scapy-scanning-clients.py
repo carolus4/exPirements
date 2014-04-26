@@ -1,20 +1,15 @@
 #!/usr/bin/env python
+from __future__ import print_function
 from scapy.all import *
 import sys
 import datetime
-import MySQLdb
+#import MySQLdb
+
 
 # Define the interface name that we will be sniffing from
 interface = "mon0"
-
+f = open("output.txt","w")
 observedclients = []
-
-db = MySQLdb.connect(host= "vm-0.carolus4.koding.kd.io",
-    user="carolus4",
-    passwd="pipipi",
-    db="pipings")
-cursor = db.cursor()
- 
 
 # The sniffmgmt() function is called each time Scapy receives a packet
 # The packet that was sniffed is passed as the function argument, "p".
@@ -38,20 +33,12 @@ def sniffmgmt(p):
             # client address isn't present, print the address and then add
             # it to our list.
             if p.addr2 == "c4:43:8f:57:58:5b": #p.addr2 not in observedclients and 
-                print "pi1" + "," + timestamp + "," + p.addr2
-                sys.stdout.write( "pi1" + "," + timestamp + "," + p.addr2)
+                print("pi1" + "," + timestamp + "," + p.addr2, file = f)
                 observedclients.append(p.addr2)
-                sendtodb("pi1",timestamp,p.addr2)
-
-def sendtodb(id,time,mac):
-    try:
-        cursor.execute("""INSERT INTO pings  VALUES (%s,%s,%s)""",(id,time,mac))
-        db.commit()
-    except:
-        db.rollback()
-    db.close()
+                #sendtodb("pi1",timestamp,p.addr2)
 
 # With the sniffmgmt() function complete, we can invoke the Scapy sniff()
 # function, pointing to the monitor mode interface, and telling Scapy to call
 # the sniffmgmt() function for each packet received. Easy!
 sniff(iface=interface, prn=sniffmgmt)
+#MySQLdb.connect(host= "vm-0.ptiper.koding.kd.io",user="ptiper",passwd="pipipi",db="pipings")

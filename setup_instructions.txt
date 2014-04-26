@@ -52,3 +52,5 @@ sudo tshark -i mon0 -a duration:3 -N m -t ad > capture_tshark2.txt | capture for
 SQL stuff
 Open SSH in background on port X
 Run command mysql -e "USE pipings; SELECT * FROM pings;" -u pi -ppipipi
+
+Command used for pi scan: sudo tshark -i mon0 -t ad | grep "c4:43:8f:57:58:5b -> Broadcast" > output_piX.txt

@@ -1,14 +1,16 @@
 #!/usr/bin/env python
 from __future__ import print_function
 from scapy.all import *
+from sys import argv
 import sys
 import datetime
 #import MySQLdb
 
+pinumber = argv[0]
 
 # Define the interface name that we will be sniffing from
 interface = "mon0"
-f = open("output.txt","w")
+f = open("output"+str(pinumber)+".txt","w")
 observedclients = []
 
 # The sniffmgmt() function is called each time Scapy receives a packet
@@ -33,7 +35,8 @@ def sniffmgmt(p):
             # client address isn't present, print the address and then add
             # it to our list.
             if p.addr2 == "c4:43:8f:57:58:5b": #p.addr2 not in observedclients and 
-                print("pi1" + "," + timestamp + "," + p.addr2, file = f)
+                print(str(pinumber) + "," + timestamp + "," + p.addr2, file = f)
+                print "GOT ONE!" + timestamp + " " + p.addr2
                 observedclients.append(p.addr2)
                 #sendtodb("pi1",timestamp,p.addr2)
 
